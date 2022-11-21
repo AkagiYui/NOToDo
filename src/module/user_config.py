@@ -19,6 +19,10 @@ class UserConfig(metaclass=SingletonType):
         port: int = 80  # 监听端口
     server: __Server = __Server()
 
+    class __MongoDB(BaseModel):
+        uri: str = 'mongodb://localhost:27017'  # MongoDB URI
+    mongodb: __MongoDB = __MongoDB()
+
     def __init__(self, file_path):
         """初始化"""
         self.log = LoggerEx(self.__class__.__name__)
@@ -49,6 +53,8 @@ class UserConfig(metaclass=SingletonType):
                     put_into_dict(config_data, ('server', 'host'), str(v))
                 case 'SERVER_PORT':
                     put_into_dict(config_data, ('server', 'port'), int(v))
+                case 'MONGODB_URI':
+                    put_into_dict(config_data, ('mongodb', 'uri'), str(v))
 
         # 应用配置
         for k, v in deep_iter(config_data):
@@ -57,6 +63,8 @@ class UserConfig(metaclass=SingletonType):
                     self.server.host = str(v)
                 case ('server', 'port'):
                     self.server.port = int(v)
+                case ('mongodb', 'uri'):
+                    self.mongodb.uri = str(v)
                 case _:
                     self.log.warning(f'Unknown config item: {k}')
 

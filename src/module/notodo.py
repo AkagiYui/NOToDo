@@ -4,6 +4,7 @@ from typing import Optional
 import uvicorn as uvicorn
 
 from module.asset import APP_DESCRIPTION, APP_NAME, VERSION_NUM, VERSION_STR
+from module.database import Database
 from module.exception import PortInUseError
 from module.global_dict import Global
 from module.http_server import HttpServer
@@ -23,6 +24,8 @@ class NOToDo:
         if Global().debug_mode:
             self.log.set_level(LogLevel.DEBUG)
         # 一定要严格按照顺序初始化，否则可能会出现异常
+        self.database = Database(self.config.mongodb.uri)
+        Global().database = self.database
         self.http_app = HttpServer()
         self.http_thread: Optional[Thread] = None
 
@@ -35,12 +38,14 @@ class NOToDo:
         """启动NOToDo"""
         if is_port_in_use(self.config.server.port):  # 检查端口是否被占用
             raise PortInUseError(f'Port {self.config.server.port} already in use')
+        self.database.connect()
         self.start_asgi()
 
     def stop(self) -> None:
         """停止NOToDo"""
         self.log.debug(f'{APP_NAME} stopping.')
         self.stop_asgi()
+        self.database.close()
         self.log.info(f'{APP_NAME} stopped, see you next time.')
 
     def start_asgi(self) -> None:
