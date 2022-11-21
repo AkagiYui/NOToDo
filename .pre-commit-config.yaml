@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/akagiyui/NOToDo
+    rev: master
+    hooks:
+      - id: flake8
+      - id: isort

@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+rich>=12.6.0  # log formatter 日志格式化工具
+distro>=1.8.0  # system information 系统信息
+psutil>=5.9.4  # process and system utilities 进程和系统实用程序
+ruamel.yaml>=0.17.21  # yaml parser yaml解析器
+fastapi>=0.87.0  # api framework api框架
+uvicorn>=0.19.0  # asgi server asgi服务器
+python-jose>=3.3.0  # jwt tools jwt工具
+# cryptography==38.0.1  # cryptography tools 加密工具
