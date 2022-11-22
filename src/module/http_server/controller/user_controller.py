@@ -18,6 +18,7 @@ class UserController(APIRouter):
     """信息接口"""
 
     def __init__(self, *args, **kwargs):
+        """初始化用户接口"""
         super().__init__(prefix='/user', *args, **kwargs)
         self.log = LoggerEx(self.__class__.__name__)
         if Global().debug_mode:

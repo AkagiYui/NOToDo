@@ -6,6 +6,7 @@ from pymongo.errors import DuplicateKeyError
 
 class User(Document):
     """用户"""
+
     username = StringField(required=True, unique=True)  # 用户名
     password = StringField(required=True)  # 密码
     nickname = StringField()  # 昵称
