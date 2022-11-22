@@ -3,6 +3,7 @@ import base64
 import contextlib
 import ctypes
 import hashlib
+import hmac
 import os
 import platform
 import socket
@@ -28,7 +29,7 @@ def is_port_in_use(_port: int, _host: str = '127.0.0.1') -> bool:
         s.settimeout(1)
         s.connect((_host, _port))
         return True
-    except socket.error:
+    except OSError:
         return False
     finally:
         if s:
@@ -166,6 +167,11 @@ def put_into_dict(dict_: dict, path: Sequence[Hashable], value: Any) -> None:
         if current_key not in dict_:
             dict_[current_key] = {}
         put_into_dict(dict_[current_key], path[1:], value)
+
+
+def hmac_sha1(key: str, data: str) -> str:
+    """计算HMAC-SHA1"""
+    return hmac.new(key.encode(), data.encode(), hashlib.sha1).hexdigest()
 
 
 if __name__ == '__main__':
