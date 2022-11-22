@@ -10,7 +10,7 @@ for i in ('requirements', 'requirements-dev'):
                                '--annotation-style=line',
                                '--resolver=backtracking'])
     with contextlib.suppress(FileNotFoundError):
-        with open(f'{i}.txt', 'r') as f:
+        with open(f'{i}.txt') as f:
             lines = f.readlines()
         with open(f'{i}.txt', 'w') as f:
             for line in lines:

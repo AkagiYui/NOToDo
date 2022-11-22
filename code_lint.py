@@ -2,6 +2,7 @@
 优化 import 排序，进行代码规范检查
 """
 import subprocess
+
 status = 0
 
 status += subprocess.call(['isort', 'src/'])  # 导入排序

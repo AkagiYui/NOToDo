@@ -29,7 +29,6 @@ class HttpServer(FastAPI):
             title=APP_NAME,  # 文档标题
             openapi_tags=[
                 {'name': 'User', 'description': '用户操作'},
-                {'name': 'Account', 'description': '账户管理'},
             ]
         )
         self.log = LoggerEx(self.__class__.__name__)
@@ -66,7 +65,6 @@ class HttpServer(FastAPI):
             ('/user/login', 'POST'),  # 登录
             ('/user/username-available', 'GET'),  # 用户名验证
             ('/user/register', 'POST'),  # 注册
-            ('/account/balance', 'PUT'),  # 修改余额
         }  # 不需要token的路径
 
     @staticmethod
