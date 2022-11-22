@@ -14,6 +14,7 @@ from module.asset import APP_NAME
 from module.global_dict import Global
 from module.logger_ex import LoggerEx, LogLevel
 
+from .controller.user_controller import UserController
 from .http_result import HttpResult
 from .jwt_manager import JWTManager
 
@@ -54,7 +55,7 @@ class HttpServer(FastAPI):
         self.add_exception_handler(RequestValidationError, handler=self.exception_handler_ex)
 
         self.router.add_api_route('/', self.route_root, methods=['GET'], include_in_schema=False)
-        # self.router.include_router(UserController(), tags=['User'])
+        self.router.include_router(UserController(), tags=['User'])
         # self.router.include_router(AccountController(), tags=['Account'])
 
         self.no_token_path = {
